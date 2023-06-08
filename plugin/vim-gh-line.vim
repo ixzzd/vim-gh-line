@@ -67,15 +67,7 @@ if !exists('g:gh_always_interactive')
 endif
 
 func! s:gh_exec_cmd(url)
-    if get(g:, "gh_open_command", "") == ""
-        echom a:url
-        return
-    endif
-    let l:finalCmd = g:gh_open_command . a:url
-    if g:gh_trace
-        echom "vim-gh-line executing: " . l:finalCmd
-    endif
-    call system(l:finalCmd)
+    let @+= a:url | OSCYankReg +
 endfun
 
 func! s:gh_line(action, force_interactive) range
